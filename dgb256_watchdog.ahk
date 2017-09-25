@@ -25,7 +25,7 @@ json(ByRef js, s, v = "")
 
 Menu, Tray, add
 Menu, Tray, add, Run dgb256 Watchdog, RunWD
-Menu, Tray, add, Settings dgb256 Watchdog v.0.3.17b, SettingsWD 
+Menu, Tray, add, Settings dgb256 Watchdog v0.3.17b, SettingsWD 
 Menu, Tray, add, Stop/Reload dgb256 Watchdog, StopWD
 Menu, Tray, Tip, dgb256 Watchdog Paused
 Menu, Tray, Icon, Images\pause_wd.bmp
