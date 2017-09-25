@@ -28,7 +28,7 @@ Phones=79001234567,79001234568 --------------------- Номера телефонов на которые
 Кому понравилось коньяк можно лить сюда :) Bitcoin: 17cQT8GjQyYg9QKt2b42PFXRTifxENdMHT
 
 Ссылки:
-качаем тут: https://github.com/NoProblem/dgb256.online-Watchdog/raw/master/dgb256.online-Watchdog-v0-3-17b.zip
+качаем тут: https://github.com/NoProblem/dgb256.online-Watchdog/raw/master/dgb256.online-Watchdog-v0-3-19b.zip
 страница проекта: https://github.com/NoProblem/dgb256.online-Watchdog
 
 Скрипт занимает 2.7МБ оперативной памяти и 0.0% процессорного времени, можно запускать несколько скриптов с разными настройками из разных папок.  
