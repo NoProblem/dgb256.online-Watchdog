@@ -2,7 +2,7 @@ Opensource script for ASIC monitoring on dgb256.online pool. Created by NoProble
 
 English is not my native language, sorry for mistakes.
 
-This script running in tray, checking ASIC state every 2 min. If a single ASIC hashrate less than "WorkerErrorSpeed" script will send SMS.
+This script running in tray and checking ASIC state every 2 min. If a single ASIC hashrate less than value "WorkerErrorSpeed" script will send SMS.
 Usage:
 1. Download and install Autohotkey https://www.autohotkey.com/
 2. (skip if not need SMS) Register on site sms.ru (may be other) using my ref link https://noproblem.sms.ru/ discount 10%. 
@@ -27,11 +27,12 @@ Phones=79001234567,79001234568 --------------------- Phone numbers for SMS.
 5. Run script (dbl click dgb256_watchdog.ahk), in tray will appes "pause" icon, right click on it and choose "Run dgb256 Watchdog"
 6. Have fun!
 
-You can edit this script in any text editor like notepad, script not need compile, after edit choose "Reload This Script" and run script again.
-If you like it u can buy some c2h5oh for me :) Bitcoin: 17cQT8GjQyYg9QKt2b42PFXRTifxENdMHT
+You can edit this script with any text editor like notepad, script not need to compile, after update it you must choose "Reload This Script" or "Exit" and run script again.
+If you like it you can buy some c2h5oh for me :) Bitcoin: 17cQT8GjQyYg9QKt2b42PFXRTifxENdMHT
 
 links:
 Download last version: https://github.com/NoProblem/dgb256.online-Watchdog/raw/master/dgb256.online-Watchdog.zip
 GitHub: https://github.com/NoProblem/dgb256.online-Watchdog
 
 You can run script multiple times with different settings from different directories.
+Script mem usage ~2.8MB, CPU usage ~0.0%
