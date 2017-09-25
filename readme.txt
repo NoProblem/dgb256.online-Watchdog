@@ -1,6 +1,6 @@
 Opensource and free script for ASIC monitoring on dgb256.online pool. Created by NoProblem :)
 DGB (Digibyte) SHA256 https://dgb256.online/ welcome to pool! (AntMiner S4+, AntMiner S5, AntMiner S7, AntMiner R4, AntMiner S9, Avalon4, Avalon6, SP35 Yukon and other SHA256 devices)
-Forum: https://forum.bits.media/index.php?/topic/49439-dgb-sha256-pplns-50nd-dgb256online-digibyte-пул/& 
+Forum: https://forum.bits.media/index.php?/topic/49439-dgb-sha256-pplns-50nd-dgb256online-digibyte-пул/ 
 
 English is not my native language, sorry for mistakes.
 
