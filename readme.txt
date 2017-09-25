@@ -1,5 +1,5 @@
 Opensource script for ASIC monitoring on dgb256.online pool. Created by NoProblem :)
-DGB (Digibyte) SHA256 Pool https://dgb256.online/
+DGB (Digibyte) SHA256 Pool https://dgb256.online/ (AntMiner S3, AntMiner S5, AntMiner S7, AntMiner R4, AntMiner S9 and other SHA256 devices)
 
 English is not my native language, sorry for mistakes.
 
