@@ -112,9 +112,9 @@ POSTData := "&username=" . User
 
 URL      := "https://dgb256.online/index.php?k=api" . POSTData
 
-WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 try 
 {
+	WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 	WebRequest.Open("POST", URL, false)
 	WebRequest.SetRequestHeader("Content-Type", "application/json")
 	WebRequest.Send("")
@@ -217,10 +217,10 @@ if (WebRequest.StatusText = "OK")
 				URL := "https://sms.ru/sms/send?api_id=" . SMS_RU_api_id
 					. "&to=" . Phones . "&msg=" . errorText . "&json=1"  
 	
-				;WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-				;WebRequest.Open("POST", URL, false)
-				;WebRequest.SetRequestHeader("Content-Type", "application/json")
-				;WebRequest.Send("")
+				WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+				WebRequest.Open("POST", URL, false)
+				WebRequest.SetRequestHeader("Content-Type", "application/json")
+				WebRequest.Send("")
 			}
 
 			textErrorLog .= "SMS send " . A_Hour . ":" . A_Min . ":" . A_Sec . " " . URL . chr(10) . chr(13)
