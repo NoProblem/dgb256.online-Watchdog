@@ -25,7 +25,7 @@ json(ByRef js, s, v = "")
 
 Menu, Tray, add
 Menu, Tray, add, Run dgb256 Watchdog, RunWD
-Menu, Tray, add, Settings dgb256 Watchdog v0.3.17b, SettingsWD 
+Menu, Tray, add, Settings dgb256 Watchdog v0.5.01b, SettingsWD 
 Menu, Tray, add, Stop/Reload dgb256 Watchdog, StopWD
 Menu, Tray, Tip, dgb256 Watchdog Paused
 Menu, Tray, Icon, Images\pause_wd.bmp
@@ -53,7 +53,7 @@ totalWarn := 0
 totalErr := 0
 SetFormat, float, 0.1
 
-Gui, Add, Tab3, , Settings|Log|Readme
+Gui, Add, Tab3, , Settings|Log|Readme|Readme EN
 Gui, Tab, 1
 Gui, Add, Edit, w600 r37 -wrap vEditSettings
 Gui, Add, Button, gSaveSettings, Save and Reload
@@ -64,6 +64,8 @@ Gui, Add, text,, Error Log:
 Gui, Add, Edit, w600 r15 vEditErrorLog
 Gui, Tab, 3
 Gui, Add, Edit, w600 r39 vEditReadme
+Gui, Tab, 4
+Gui, Add, Edit, w600 r39 vEditReadmeEN
 return
 
 ; Settings ================================================================================
@@ -80,6 +82,8 @@ FileRead, FileContents, dgb256_watchdog.ini
 GuiControl, , EditSettings, %FileContents%
 FileRead, FileContents, readme_ru.txt
 GuiControl, , EditReadme, %FileContents%
+FileRead, FileContents, readme.txt
+GuiControl, , EditReadmeEN, %FileContents%
 
 Gui, +AlwaysOnTop 
 Gui, Tab, 1
