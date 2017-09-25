@@ -1,5 +1,5 @@
 Opensource script for ASIC monitoring on dgb256.online pool. Created by NoProblem :)
-DGB (Digibyte) Pool https://dgb256.online/
+DGB (Digibyte) SHA256 Pool https://dgb256.online/
 
 English is not my native language, sorry for mistakes.
 
