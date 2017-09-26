@@ -16,13 +16,13 @@ User=NoProblem ------------------------------------- Your login.
 APIkey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX --------------- "Your current API Key" https://dgb256.online/index.php?k=userset
 SecretKey= ----------------------------------------- not used
 CoinType=DGB --------------------------------------- not used
-WorkerWarnSpeed=12.00 ------------------------------ Speed in Th (warning) If workes speed less than this value than warning message will apears in tray and log.
-WorkerErrorSpeed=9.00 ------------------------------ Speed in Th (error) If workes speed less than this value than error message will apears in tray and log and SMS will be send. 
+WorkerWarnSpeed=12.00 ------------------------------ Speed in Th (warning) If worker speed less than this value than warning message will apears in tray and log.
+WorkerErrorSpeed=9.00 ------------------------------ Speed in Th (error) If worker speed less than this value than error message will apears in tray and log and SMS will be send. 
 WorkerCount=8 -------------------------------------- Your total worker quantity.
 SkipWorkers=NoProblem.worker7,NoProblem.worker8 ---- Skip workers if you dont need check them.
 SleepTime=120000 ----------------------------------- Time between checks in milliseconds (120000 = 2 min)
 SleepAfterError=1800000 ---------------------------- Time after error (1800000 = 30 min). For prevent SMS spamming.
-MustSendSMS=1 -------------------------------------- Send SMS if error appears or not (yes:1 no:0)
+MustSendSMS=0 -------------------------------------- Send SMS if error appears or not (yes:1 no:0)
 SMS_RU_api_id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX - Your api_id from sms.ru https://sms.ru/?panel=api
 Phones=79001234567,79001234568 --------------------- Phone numbers for SMS.
 
