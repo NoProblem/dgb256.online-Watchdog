@@ -241,8 +241,8 @@ if (WebRequest.StatusText = "OK")
 	totalErr += Err
 	totalRateStr := "5m: " . total_w_hashrate5m . "  1h: " . total_w_hashrate1hr . "  24h: " . total_w_hashrate24hr 
 
-	tipStr := chr(34) . User . chr(34) . " dgb256 Watchdog Running" . startTime . chr(13) 
-		. "Errors:   " . totalErr . "   " . errorText . " Warnings:   " . totalWarn . " " . warningText . chr(13)
+	tipStr := chr(34) . User . chr(34) . " dgb256 WD Running" . startTime . chr(13) 
+		. "Errors: " . totalErr . " " . errorText . " Warnings: " . totalWarn . " " . warningText . chr(13)
 		. A_Hour . ":" . A_Min . ":" . A_Sec . " (" . checkCounter . ")" .  chr(13) 
 		. totalRateStr 
 
