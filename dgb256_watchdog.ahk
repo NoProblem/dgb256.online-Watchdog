@@ -25,8 +25,9 @@ json(ByRef js, s, v = "")
 
 Menu, Tray, add
 Menu, Tray, add, Run dgb256 Watchdog, RunWD
-Menu, Tray, add, Settings dgb256 Watchdog v0.5.01b, SettingsWD 
+Menu, Tray, add, Show Log dgb256 Watchdog, ShowLogWD
 Menu, Tray, add, Stop/Reload dgb256 Watchdog, StopWD
+Menu, Tray, add, Settings dgb256 Watchdog v0.7.01b, SettingsWD 
 Menu, Tray, Tip, dgb256 Watchdog Paused
 Menu, Tray, Icon, Images\pause_wd.bmp
 Menu, Tray, Disable, Stop/Reload dgb256 Watchdog
@@ -44,6 +45,9 @@ IniRead, SleepAfterError, dgb256_watchdog.ini, dgb256Settings, SleepAfterError
 IniRead, MustSendSMS, dgb256_watchdog.ini, dgb256Settings, MustSendSMS
 IniRead, SMS_RU_api_id, dgb256_watchdog.ini, dgb256Settings, SMS_RU_api_id
 IniRead, Phones, dgb256_watchdog.ini, dgb256Settings, Phones
+IniRead, MustSendTelegram, dgb256_watchdog.ini, dgb256Settings, MustSendTelegram
+IniRead, Telegram_token, dgb256_watchdog.ini, dgb256Settings, Telegram_token
+IniRead, Telegram_chat_id, dgb256_watchdog.ini, dgb256Settings, Telegram_chat_id
 
 startTime := " " . A_DD . " " . A_MMM . " " . A_Hour . ":" . A_Min . ":" . A_Sec
 textLog := "Started:" . startTime . chr(10) . chr(13)
@@ -53,7 +57,7 @@ totalWarn := 0
 totalErr := 0
 SetFormat, float, 0.1
 
-Gui, Add, Tab3, , Settings|Log|Readme|Readme EN
+Gui, Add, Tab3, vTab, Settings|Log|ReadmeRU|ReadmeEN
 Gui, Tab, 1
 Gui, Add, Edit, w600 r37 -wrap vEditSettings
 Gui, Add, Button, gSaveSettings, Save and Reload
@@ -68,26 +72,31 @@ Gui, Tab, 4
 Gui, Add, Edit, w600 r39 vEditReadmeEN
 return
 
-; Settings ================================================================================
+fillGui(textLog, textErrorLog)
+{
+	GuiControl,, EditLog, %textLog%
+	GuiControl,, EditErrorLog, %textErrorLog%
+	FileRead, FileContents, dgb256_watchdog.ini
+	GuiControl, , EditSettings, %FileContents%
+	FileRead, FileContents, readme_ru.txt
+	GuiControl, , EditReadme, %FileContents%
+	FileRead, FileContents, readme.txt
+	GuiControl, , EditReadmeEN, %FileContents%
+	return
+}
+
+; Settings =============================================================================
 SettingsWD:
 Menu, Tray, Tip, dgb256 Watchdog Paused
 Menu, Tray, Icon, Images\pause_wd.bmp
-
 Menu, Tray, Disable, Stop/Reload dgb256 Watchdog
 Menu, Tray, Enable, Run dgb256 Watchdog
-
-GuiControl,, EditLog, %textLog%
-GuiControl,, EditErrorLog, %textErrorLog%
-FileRead, FileContents, dgb256_watchdog.ini
-GuiControl, , EditSettings, %FileContents%
-FileRead, FileContents, readme_ru.txt
-GuiControl, , EditReadme, %FileContents%
-FileRead, FileContents, readme.txt
-GuiControl, , EditReadmeEN, %FileContents%
-
-Gui, +AlwaysOnTop 
-Gui, Tab, 1
+fillGui(textLog, textErrorLog)
+Gui, -AlwaysOnTop 
+GuiControl, Choose, Tab, 1
 Gui, Show
+
+MsgBox, Script Paused
 return
 
 SaveSettings:
@@ -97,7 +106,16 @@ FileAppend, %EditSettings%, dgb256_watchdog.ini
 reload
 return
 
-;RUN function ========================================================================
+;SHOW LOG ===============================================================================
+ShowLogWD:
+fillGui(textLog, textErrorLog)
+Gui, +AlwaysOnTop 
+GuiControl, Choose, Tab, 2
+Gui, Show
+Goto, RunWD
+return
+
+;RUN function ===========================================================================
 RunWD:
 
 Menu, Tray, Disable, Run dgb256 Watchdog
@@ -140,16 +158,15 @@ if (WebRequest.StatusText = "OK")
 {
 	html := WebRequest.responseText
 	textLog .= "" . A_Hour . ":" . A_Min . ":" . A_Sec . chr(10) . chr(13)	
-
-	i := 0
-	Warn := 0
-	Err := 0
-	total_w_hashrate5m := 0.0
-	total_w_hashrate1hr := 0.0
-	total_w_hashrate24hr := 0.0
 	warningText := ""
 	errorText := ""
 
+	Warn := 0
+	Err := 0
+
+	total_w_hashrate5m := 0.0
+	total_w_hashrate1hr := 0.0
+	total_w_hashrate24hr := 0.0
 	totalRecord := strreplace(json(html, "rows"), chr(34))
 
 	if (totalRecord != WorkerCount)
@@ -158,7 +175,8 @@ if (WebRequest.StatusText = "OK")
 		err++
 	}	
 
-;worker main loop =====================================================================================================
+;worker main loop =========================================================================
+	i := 0
 	While (i < totalRecord)
 	{
 		worker := strreplace(json(html, "workername:" . i), chr(34))
@@ -213,6 +231,7 @@ if (WebRequest.StatusText = "OK")
 		textLog .= "Error! " . A_Hour . ":" . A_Min . ":" . A_Sec . chr(10) . chr(13) . errorText . chr(10) . chr(13)
 		textErrorLog .= "Error! " . A_Hour . ":" . A_Min . ":" . A_Sec . chr(10) . chr(13) . errorText . chr(10) . chr(13)
 
+		; ================= SMS ===========================================================
 		try 
 		{
 			URL := "SMS disabled"
@@ -235,14 +254,38 @@ if (WebRequest.StatusText = "OK")
 			textErrorLog .= "SMS send Error! " . A_Hour . ":" . A_Min . ":" . A_Sec . chr(10) . chr(13) . URL . chr(10) . chr(13)
 			totalWarn++
 		}	
+
+		; ================= Telegram BOT ===========================================================
+		try 
+		{
+			URL := "Telegram disabled"
+			if (MustSendTelegram != 0)
+			{
+				URL := "https://api.telegram.org/bot" . Telegram_token 	
+					. "/sendMessage?chat_id=" . Telegram_chat_id . "&text=" . errorText 
+	
+				WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+				WebRequest.Open("POST", URL, false)
+				WebRequest.SetRequestHeader("Content-Type", "application/json")
+				WebRequest.Send("")
+			}
+
+			textErrorLog .= "Telegram send " . A_Hour . ":" . A_Min . ":" . A_Sec . " " . URL . chr(10) . chr(13)
+		}
+		catch e 
+		{
+			textLog .= "Telegram send Error! " . A_Hour . ":" . A_Min . ":" . A_Sec . chr(10) . chr(13) . URL . chr(10) . chr(13)
+			textErrorLog .= "Telegram send Error! " . A_Hour . ":" . A_Min . ":" . A_Sec . chr(10) . chr(13) . URL . chr(10) . chr(13)
+			totalWarn++
+		}	
 	}
 
 	totalWarn += Warn
 	totalErr += Err
-	totalRateStr := "5m: " . total_w_hashrate5m . "  1h: " . total_w_hashrate1hr . "  24h: " . total_w_hashrate24hr 
+	totalRateStr := "5m: " . total_w_hashrate5m . " 1h: " . total_w_hashrate1hr . " 24h: " . total_w_hashrate24hr 
 
 	tipStr := chr(34) . User . chr(34) . " dgb256 WD Running" . startTime . chr(13) 
-		. "Errors: " . totalErr . " " . errorText . " Warnings: " . totalWarn . " " . warningText . chr(13)
+		. "Err: " . totalErr . " " . errorText . " Warn: " . totalWarn . " " . warningText . chr(13)
 		. A_Hour . ":" . A_Min . ":" . A_Sec . " (" . checkCounter . ")" .  chr(13) 
 		. totalRateStr 
 
@@ -273,6 +316,10 @@ else
 		Sleep, %SleepAfterError%
 
 	Sleep, %SleepTime%
+
+	; *AntPool Request limits: Do not make more than 600 request per 10 minutes or we will ban your IP address. 
+	if (SleepTime < 1000)
+		Sleep, 1000 
 }
 ; end main loop =======================================================
 return
@@ -284,4 +331,3 @@ return
 
 StopWD:
 Reload
-
