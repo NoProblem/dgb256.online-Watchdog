@@ -7,7 +7,7 @@ English is not my native language, sorry for mistakes.
 This script running in tray and checking ASIC state every 2 min. If a single ASIC hashrate less than value "WorkerErrorSpeed" script will send SMS.
 Usage:
 1. Download and install Autohotkey https://www.autohotkey.com/
-2. (skip if not need SMS) Register on site sms.ru (may be other) using my ref link https://noproblem.sms.ru/ discount 10%. 
+2. (skip if not need SMS) Register on site sms.ru 
 3. Dowload script: https://github.com/NoProblem/dgb256.online-Watchdog/raw/master/dgb256.online-Watchdog.zip
 4. Change values in file dgb256_watchdog.ini
 
